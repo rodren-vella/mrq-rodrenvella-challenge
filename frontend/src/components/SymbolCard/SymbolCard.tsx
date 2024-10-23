@@ -6,7 +6,8 @@ import { useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import TrendIcon from '../TrendIcon/TrendIcon';
 import FormattedPrice from '../FromattedPrice/FromattedPrice';
-import { Fragment, memo } from 'react';
+import { Fragment, memo, useEffect } from 'react';
+import usePrevious from '@/hooks/usePrevious';
 
 type SymbolCardProps = {
   id: string;
@@ -30,9 +31,15 @@ const SymbolCard = memo(function SymbolCard({
   const handleOnClick = () => {
     onClick(id);
   };
+  const prevPrice = usePrevious(price);
+  const bigVariation =
+    prevPrice &&
+    price &&
+    Math.abs(Math.abs(prevPrice) - Math.abs(price)) > Math.abs(prevPrice) * 0.25;
 
   function getCardClass() {
     const classes = ['symbolCard'];
+    if (bigVariation) classes.push('symbolCard__shake');
     switch (selectedSym) {
       case null:
         break;
