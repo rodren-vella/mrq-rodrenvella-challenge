@@ -6,8 +6,9 @@ import { useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import TrendIcon from '../TrendIcon/TrendIcon';
 import FormattedPrice from '../FromattedPrice/FromattedPrice';
-import { Fragment, memo, useEffect } from 'react';
+import { Fragment, memo } from 'react';
 import usePrevious from '@/hooks/usePrevious';
+import GlowShadow from '../GlowShadow/glowShadow';
 
 type SymbolCardProps = {
   id: string;
@@ -37,6 +38,8 @@ const SymbolCard = memo(function SymbolCard({
     price &&
     Math.abs(Math.abs(prevPrice) - Math.abs(price)) > Math.abs(prevPrice) * 0.25;
 
+  const glowUp = prevPrice ? price > prevPrice : false;
+
   function getCardClass() {
     const classes = ['symbolCard'];
     if (bigVariation) classes.push('symbolCard__shake');
@@ -55,6 +58,7 @@ const SymbolCard = memo(function SymbolCard({
 
   return (
     <div onClick={handleOnClick} className={getCardClass()}>
+      {prevPrice && <GlowShadow up={glowUp} />}
       {selectedSym == id && <div className="symbolCard__shadow" />}
       <div className="symbolCard__header">
         {id} <TrendIcon trend={trend} />
