@@ -5,6 +5,7 @@ import { ReactComponent as IndustryIcon } from '@/assets/industry.svg';
 import { useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import TrendIcon from '../TrendIcon/TrendIcon';
+import FormattedPrice from '../FromattedPrice/FromattedPrice';
 
 type SymbolCardProps = {
   id: string;
@@ -13,6 +14,7 @@ type SymbolCardProps = {
 };
 
 const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
+  let formatter = Intl.NumberFormat('en', { notation: 'compact' });
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
@@ -24,13 +26,14 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
       <div className="symbolCard__header">
         {id} <TrendIcon trend={trend} />
       </div>
-      <div className="symbolCard__priceRow">
-        <div>Price:</div>
-        <div>{price || '--'} </div>
-      </div>
+      <FormattedPrice priceFromatted={formatter.format(price)} />
       <ListItem Icon={<CompanyIcon />} label={companyName} spacing="space-between" />
       <ListItem Icon={<IndustryIcon />} label={industry} spacing="space-between" />
-      <ListItem Icon={<MarketCapIcon />} label={marketCap.toString()} spacing="space-between" />
+      <ListItem
+        Icon={<MarketCapIcon />}
+        label={'$' + formatter.format(marketCap)}
+        spacing="space-between"
+      />
     </div>
   );
 };
