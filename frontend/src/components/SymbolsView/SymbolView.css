@@ -1,0 +1,7 @@
+.symbolsView__content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.symbolsView__cards {
+  flex-grow: 1;
+}
