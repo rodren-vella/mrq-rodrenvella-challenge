@@ -1,5 +1,7 @@
 import './symbolCard.css';
 import { ReactComponent as CompanyIcon } from '@/assets/company.svg';
+import { ReactComponent as MarketCapIcon } from '@/assets/market_cap.svg';
+import { ReactComponent as IndustryIcon } from '@/assets/industry.svg';
 import { useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import TrendIcon from '../TrendIcon/TrendIcon';
@@ -11,7 +13,9 @@ type SymbolCardProps = {
 };
 
 const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
-  const { trend, companyName } = useAppSelector((state) => state.stocks.entities[id]);
+  const { trend, companyName, industry, marketCap } = useAppSelector(
+    (state) => state.stocks.entities[id]
+  );
   const handleOnClick = () => {
     onClick(id);
   };
@@ -20,9 +24,13 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
       <div className="symbolCard__header">
         {id} <TrendIcon trend={trend} />
       </div>
-      <div>Price:</div>
-      <div>{price || '--'} </div>
-      <ListItem Icon={<CompanyIcon />} label={companyName} />
+      <div className="symbolCard__priceRow">
+        <div>Price:</div>
+        <div>{price || '--'} </div>
+      </div>
+      <ListItem Icon={<CompanyIcon />} label={companyName} spacing="space-between" />
+      <ListItem Icon={<IndustryIcon />} label={industry} spacing="space-between" />
+      <ListItem Icon={<MarketCapIcon />} label={marketCap.toString()} spacing="space-between" />
     </div>
   );
 };
