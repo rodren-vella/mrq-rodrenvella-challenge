@@ -1,11 +1,19 @@
 .symbolCard {
-  border: 2px solid black; /* just for visibility, feel free to remove it */
-  margin: 10px; /* just for visibility, feel free to remove it */
-  padding: 10px; /* just for visibility, feel free to remove it */
+  background-color: var(--colorWhite);
 }
 
 .symbolCard__shake {
   animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.symbolCard__header {
+  background-color: var(--colorDark);
+  border-radius: 4px 4px 0 0;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  position: relative;
 }
 
 @keyframes shake {

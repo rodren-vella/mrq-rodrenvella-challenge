@@ -2,7 +2,7 @@ import SymbolsGrid from '@/components/SymbolsGrid';
 import PriceChart from '@/components/PriceChart';
 import DesktopInfo from './src/DesktopInfo';
 import { useState } from 'react';
-import './SymbolView.css';
+import './symbolView.css';
 
 const SymbolsView = () => {
   const [activeSymbol, setActiveSymbol] = useState<null | string>(null);
