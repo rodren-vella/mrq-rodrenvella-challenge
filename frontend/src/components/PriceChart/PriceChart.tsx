@@ -11,8 +11,11 @@ type PriceChartProps = {
 const PriceChart = ({ symbolId }: PriceChartProps) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    const updateHistory = async (symbolId: string) => {
+      await dispatch(fetchPriceHistory(symbolId));
+    };
     if (symbolId) {
-      dispatch(fetchPriceHistory(symbolId));
+      updateHistory(symbolId);
     }
   }, [dispatch, symbolId]);
 
