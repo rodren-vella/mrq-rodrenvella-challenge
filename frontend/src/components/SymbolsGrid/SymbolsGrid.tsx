@@ -6,9 +6,10 @@ import './symbolGrid.css';
 import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
 type SymbolsGridProps = {
   onSymbolClick: (symbolId: string) => void;
+  symbolId: string | null;
 };
 
-const SymbolsGrid = ({ onSymbolClick }: SymbolsGridProps) => {
+const SymbolsGrid = ({ onSymbolClick, symbolId }: SymbolsGridProps) => {
   const stockSymbols = useAppSelector(selectors.selectStockIds);
   const prices = useAppSelector((state) => state.prices);
   const showCardInfo = useAppSelector(selectShowCardInfo);
@@ -26,6 +27,7 @@ const SymbolsGrid = ({ onSymbolClick }: SymbolsGridProps) => {
           key={i}
           id={id}
           showCardInfo={showCardInfo}
+          selectedSym={symbolId}
         />
       ))}
     </div>
