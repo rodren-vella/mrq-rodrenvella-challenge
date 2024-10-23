@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import './glowShadow.css';
 
 interface GlowShadowProps {

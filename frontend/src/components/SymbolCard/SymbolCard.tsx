@@ -6,7 +6,7 @@ import { useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import TrendIcon from '../TrendIcon/TrendIcon';
 import FormattedPrice from '../FromattedPrice/FromattedPrice';
-import { Fragment, memo } from 'react';
+import { Fragment, memo, useEffect, useState } from 'react';
 import usePrevious from '@/hooks/usePrevious';
 import GlowShadow from '../GlowShadow/glowShadow';
 
@@ -26,6 +26,7 @@ const SymbolCard = memo(function SymbolCard({
   selectedSym
 }: SymbolCardProps) {
   let formatter = Intl.NumberFormat('en', { notation: 'compact' });
+  const [glowing, setGlowing] = useState(false);
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
@@ -34,9 +35,7 @@ const SymbolCard = memo(function SymbolCard({
   };
   const prevPrice = usePrevious(price);
   const bigVariation =
-    prevPrice &&
-    price &&
-    Math.abs(Math.abs(prevPrice) - Math.abs(price)) > Math.abs(prevPrice) * 0.25;
+    prevPrice && Math.abs(Math.abs(prevPrice) - Math.abs(price)) > Math.abs(prevPrice) * 0.25;
 
   const glowUp = prevPrice ? price > prevPrice : false;
 
@@ -56,10 +55,19 @@ const SymbolCard = memo(function SymbolCard({
     return classes.join(' ');
   }
 
+  useEffect(() => {
+    if (!glowing) {
+      setGlowing(true);
+      setTimeout(() => {
+        setGlowing(false);
+      }, 1000);
+    }
+  }, [glowUp]);
+
   return (
     <div onClick={handleOnClick} className={getCardClass()}>
-      {prevPrice && <GlowShadow up={glowUp} />}
-      {selectedSym == id && <div className="symbolCard__shadow" />}
+      {prevPrice && glowing && <GlowShadow up={glowUp} />}
+      {selectedSym == id && !glowing && <div className="symbolCard__shadow" />}
       <div className="symbolCard__header">
         {id} <TrendIcon trend={trend} />
       </div>
