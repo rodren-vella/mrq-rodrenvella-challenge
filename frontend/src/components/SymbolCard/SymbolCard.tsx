@@ -26,7 +26,7 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
       <div className="symbolCard__header">
         {id} <TrendIcon trend={trend} />
       </div>
-      <FormattedPrice priceFromatted={formatter.format(price)} />
+      <FormattedPrice priceFromatted={price ? formatter.format(price) : '-'} />
       <ListItem Icon={<CompanyIcon />} label={companyName} spacing="space-between" />
       <ListItem Icon={<IndustryIcon />} label={industry} spacing="space-between" />
       <ListItem
