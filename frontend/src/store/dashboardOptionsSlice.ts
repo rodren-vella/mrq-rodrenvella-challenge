@@ -22,7 +22,9 @@ export const dashboardOptionsSlice = createSlice({
       state.showCardInfo = !state.showCardInfo;
     },
     updateActiveSymbol: (state, action: PayloadAction<Item>) => {
-      state.activeSymbol = action.payload.activeSymbol;
+      state.activeSymbol != action.payload.activeSymbol
+        ? (state.activeSymbol = action.payload.activeSymbol)
+        : (state.activeSymbol = '');
     }
   }
 });
