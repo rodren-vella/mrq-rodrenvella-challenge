@@ -8,7 +8,8 @@ import TrendIcon from '../TrendIcon/TrendIcon';
 import FormattedPrice from '../FromattedPrice/FromattedPrice';
 import { Fragment, memo, useEffect, useState } from 'react';
 import usePrevious from '@/hooks/usePrevious';
-import GlowShadow from '../GlowShadow/glowShadow';
+import { selectActiveSymbol } from '@/store/dashboardOptionsSlice';
+import GlowShadow from '../GlowShadow/GlowShadow';
 
 type SymbolCardProps = {
   id: string;
@@ -18,15 +19,10 @@ type SymbolCardProps = {
   selectedSym: string | null;
 };
 
-const SymbolCard = memo(function SymbolCard({
-  id,
-  onClick,
-  price,
-  showCardInfo,
-  selectedSym
-}: SymbolCardProps) {
+const SymbolCard = memo(function SymbolCard({ id, onClick, price, showCardInfo }: SymbolCardProps) {
   let formatter = Intl.NumberFormat('en', { notation: 'compact' });
   const [glowing, setGlowing] = useState(false);
+  const activeSymbol = useAppSelector(selectActiveSymbol);
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
@@ -42,8 +38,8 @@ const SymbolCard = memo(function SymbolCard({
   function getCardClass() {
     const classes = ['symbolCard'];
     if (bigVariation) classes.push('symbolCard__shake');
-    switch (selectedSym) {
-      case null:
+    switch (activeSymbol) {
+      case '':
         break;
       case id:
         classes.push('symbolCard_selected');
@@ -56,18 +52,21 @@ const SymbolCard = memo(function SymbolCard({
   }
 
   useEffect(() => {
-    if (!glowing) {
+    if (!glowing && prevPrice !== undefined) {
       setGlowing(true);
       setTimeout(() => {
         setGlowing(false);
       }, 1000);
     }
-  }, [glowUp]);
+  }, [prevPrice]);
 
   return (
     <div onClick={handleOnClick} className={getCardClass()}>
       {prevPrice && glowing && <GlowShadow up={glowUp} />}
-      {selectedSym == id && !glowing && <div className="symbolCard__shadow" />}
+      <div
+        style={{ visibility: !glowing && activeSymbol == id ? 'visible' : 'hidden' }}
+        className="symbolCard__shadow"
+      />
       <div className="symbolCard__header">
         {id} <TrendIcon trend={trend} />
       </div>

@@ -12,7 +12,7 @@ const PriceChart = ({ symbolId }: PriceChartProps) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const updateHistory = async (symbolId: string) => {
-      await dispatch(fetchPriceHistory(symbolId));
+      dispatch(await fetchPriceHistory(symbolId));
     };
     if (symbolId) {
       updateHistory(symbolId);
