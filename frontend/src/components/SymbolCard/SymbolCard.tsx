@@ -6,6 +6,7 @@ import { useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import StockCardHeader from './src/StockCardHeader';
 import StockCardPrice from './src/StockCardPrice';
+import React from 'react';
 
 type SymbolCardProps = {
   id: string;
@@ -17,7 +18,7 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
-  const { activeSymbol } = useAppSelector((state) => state.store);
+  const { activeSymbol, showCardInfo } = useAppSelector((state) => state.store);
   const handleOnClick = () => {
     onClick(id);
   };
@@ -26,9 +27,13 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
       <StockCardHeader id={id} trend={trend} />
       <div className="symbolCard__content">
         <StockCardPrice activeSymbol={activeSymbol} price={price} />
-        <ListItem Icon={<CompanyIcon />} label={companyName} />
-        <ListItem Icon={<IndustryIcon />} label={industry} />
-        <ListItem Icon={<MarketCapIcon />} label={marketCap.toString()} />
+        {showCardInfo && (
+          <React.Fragment>
+            <ListItem Icon={<CompanyIcon />} label={companyName} />
+            <ListItem Icon={<IndustryIcon />} label={industry} />
+            <ListItem Icon={<MarketCapIcon />} label={marketCap.toString()} />
+          </React.Fragment>
+        )}
       </div>
     </div>
   );
