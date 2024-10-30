@@ -1,0 +1,11 @@
+.symbolsView__content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.symbolsView__cards {
+  background-color: var(--colorIron);
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(5, 1fr);
+}
