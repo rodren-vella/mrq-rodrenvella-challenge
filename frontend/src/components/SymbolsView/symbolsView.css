@@ -8,4 +8,5 @@
   display: grid;
   flex: 1;
   grid-template-columns: repeat(5, 1fr);
+  padding: 16px;
 }

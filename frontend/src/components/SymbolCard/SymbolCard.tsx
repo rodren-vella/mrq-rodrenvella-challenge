@@ -29,7 +29,13 @@ const SymbolCard = ({ id, price }: SymbolCardProps) => {
   return (
     <div
       onClick={handleOnClick}
-      className={`symbolCard ${activeSymbol === id ? 'symbolCard--selected' : ''}`}
+      className={`symbolCard ${
+        activeSymbol === ''
+          ? ''
+          : activeSymbol === id
+          ? 'symbolCard--selected'
+          : 'symbolCard--not-selected'
+      }`}
     >
       <StockCardHeader id={id} trend={trend} />
       <div className="symbolCard__content">

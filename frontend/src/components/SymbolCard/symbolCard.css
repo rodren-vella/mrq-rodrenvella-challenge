@@ -2,10 +2,20 @@
   margin: 10px; /* just for visibility, feel free to remove it */
   background-color: var(--colorWhite);
   border-radius: 6px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .symbolCard__shake {
   animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.symbolCard--selected {
+  transform: scale(104%);
+  box-shadow: 0px 0px 16px 0px var(--colorDark);
+}
+
+.symbolCard--not-selected {
+  transform: scale(96%);
 }
 
 @keyframes shake {
