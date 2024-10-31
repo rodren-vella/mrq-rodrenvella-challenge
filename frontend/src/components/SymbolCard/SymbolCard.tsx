@@ -18,7 +18,7 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
-  const { activeSymbol, showCardInfo } = useAppSelector((state) => state.store);
+  const { currency, showCardInfo } = useAppSelector((state) => state.store);
   const handleOnClick = () => {
     onClick(id);
   };
@@ -26,7 +26,7 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
     <div onClick={handleOnClick} className="symbolCard">
       <StockCardHeader id={id} trend={trend} />
       <div className="symbolCard__content">
-        <StockCardPrice activeSymbol={activeSymbol} price={price} />
+        <StockCardPrice currency={currency} price={price} />
         {showCardInfo && (
           <React.Fragment>
             <ListItem Icon={<CompanyIcon />} label={companyName} />

@@ -1,18 +1,17 @@
 import { memo } from 'react';
 import './stockCardPrice.css';
-import { PriceSymbol } from '@/lib/types/stockTypes';
 
 type StockCardPriceProps = {
-  activeSymbol: PriceSymbol;
+  currency: string;
   price: number;
 };
 
-const StockCardPrice = ({ activeSymbol, price }: StockCardPriceProps) => {
+const StockCardPrice = ({ currency, price }: StockCardPriceProps) => {
   return (
     <div className="stockCardPrice">
       <p className="stockCardPrice__label">Price:</p>
       <p className="stockCardPrice__price">
-        {price ? (activeSymbol ? activeSymbol + price : price) : '--'}
+        {price ? (currency ? currency + price : price) : '--'}
       </p>
     </div>
   );
