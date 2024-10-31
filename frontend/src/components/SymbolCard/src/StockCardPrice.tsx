@@ -1,18 +1,16 @@
 import { memo } from 'react';
 import './stockCardPrice.css';
+import { formatCurrency } from '@/utils/priceFormatter';
 
 type StockCardPriceProps = {
-  currency: string;
   price: number;
 };
 
-const StockCardPrice = ({ currency, price }: StockCardPriceProps) => {
+const StockCardPrice = ({ price }: StockCardPriceProps) => {
   return (
     <div className="stockCardPrice">
       <p className="stockCardPrice__label">Price:</p>
-      <p className="stockCardPrice__price">
-        {price ? (currency ? currency + price : price) : '--'}
-      </p>
+      <p className="stockCardPrice__price">{formatCurrency(price)}</p>
     </div>
   );
 };

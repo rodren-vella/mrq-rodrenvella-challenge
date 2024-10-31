@@ -1,14 +1,11 @@
-import { Currency } from '@/lib/types/stockTypes';
 import { createSlice } from '@reduxjs/toolkit';
 
 interface StoreState {
   activeSymbol: string | null;
   showCardInfo: boolean;
-  currency: Currency;
 }
 
 const initialState: StoreState = {
-  currency: '$',
   activeSymbol: '',
   showCardInfo: true
 };

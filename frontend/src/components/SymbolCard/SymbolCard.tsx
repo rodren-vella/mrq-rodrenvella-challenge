@@ -7,6 +7,7 @@ import ListItem from '@/components/ListItem';
 import StockCardHeader from './src/StockCardHeader';
 import StockCardPrice from './src/StockCardPrice';
 import React from 'react';
+import { formatCurrency } from '@/utils/priceFormatter';
 
 type SymbolCardProps = {
   id: string;
@@ -18,7 +19,7 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
-  const { currency, showCardInfo } = useAppSelector((state) => state.store);
+  const { showCardInfo } = useAppSelector((state) => state.store);
   const handleOnClick = () => {
     onClick(id);
   };
@@ -26,12 +27,12 @@ const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
     <div onClick={handleOnClick} className="symbolCard">
       <StockCardHeader id={id} trend={trend} />
       <div className="symbolCard__content">
-        <StockCardPrice currency={currency} price={price} />
+        <StockCardPrice price={price} />
         {showCardInfo && (
           <React.Fragment>
             <ListItem Icon={<CompanyIcon />} label={companyName} />
             <ListItem Icon={<IndustryIcon />} label={industry} />
-            <ListItem Icon={<MarketCapIcon />} label={marketCap.toString()} />
+            <ListItem Icon={<MarketCapIcon />} label={formatCurrency(marketCap)} />
           </React.Fragment>
         )}
       </div>
