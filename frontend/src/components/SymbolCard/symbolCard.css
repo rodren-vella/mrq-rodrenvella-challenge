@@ -40,3 +40,7 @@
 .symbolCard__content {
   padding: 4px;
 }
+
+.symbolCard__content .listItem {
+  justify-content: space-between;
+}
