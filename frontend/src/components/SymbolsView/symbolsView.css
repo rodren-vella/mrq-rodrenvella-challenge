@@ -1,6 +1,7 @@
 .symbolsView__content {
   display: flex;
   flex-direction: row-reverse;
+  margin-top: 28px;
 }
 
 .symbolsView__cards {
@@ -9,4 +10,5 @@
   flex: 1;
   grid-template-columns: repeat(5, 1fr);
   padding: 16px;
+  margin-right: 16px;
 }
