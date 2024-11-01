@@ -23,9 +23,9 @@
 }
 
 .stockCardHeader__trend--up {
-  background-image: url('../../../assets/up.png');
+  background-image: url('../../../assets/up.webp');
 }
 
 .stockCardHeader__trend--down {
-  background-image: url('../../../assets/down.png');
+  background-image: url('../../../assets/down.webp');
 }
