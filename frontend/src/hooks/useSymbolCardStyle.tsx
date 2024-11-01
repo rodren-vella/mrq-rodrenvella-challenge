@@ -40,7 +40,8 @@ const useSymbolCardTrendStyle = (newPrice: number): TrendClassName => {
     const prevPrice = prevPriceRef.current;
 
     //Check price went up/down and if over 25% change add Shake effect
-    if (newPrice > prevPrice) {
+    if (prevPrice === 0 || prevPrice === undefined) {
+    } else if (newPrice > prevPrice) {
       setTrend(`${shakeFxCheck('symbolCard--bigger', prevPrice, newPrice)}`);
     } else if (newPrice < prevPrice) {
       setTrend(`${shakeFxCheck('symbolCard--smaller', prevPrice, newPrice)}`);
@@ -51,7 +52,7 @@ const useSymbolCardTrendStyle = (newPrice: number): TrendClassName => {
 
     // Set a timeout to reset the card trend className after 1.2 seconds
     const trendTimeout = setTimeout(() => {
-      setTrend('');
+      prevPrice !== 0 && prevPrice !== undefined && setTrend('');
     }, 1200);
 
     // Cleanup function to clear the timeout
