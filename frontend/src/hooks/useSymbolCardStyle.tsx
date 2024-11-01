@@ -42,7 +42,7 @@ const useSymbolCardTrendStyle = (newPrice: number): TrendClassName => {
     //Check price went up/down and if over 25% change add Shake effect
     if (newPrice > prevPrice) {
       setTrend(`${shakeFxCheck('symbolCard--bigger', prevPrice, newPrice)}`);
-    } else {
+    } else if (newPrice < prevPrice) {
       setTrend(`${shakeFxCheck('symbolCard--smaller', prevPrice, newPrice)}`);
     }
 
