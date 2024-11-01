@@ -9,11 +9,14 @@ import StockCardPrice from './src/StockCardPrice';
 import React from 'react';
 import { formatCurrency } from '@/utils/priceFormatter';
 import { saveActiveSymbol } from '@/store/dashboardOptionsSlice';
+import useSymbolCardStyle from '@/hooks/useSymbolCardStyle';
 
 type SymbolCardProps = {
   id: string;
   price: number;
 };
+
+type SymbolCardSelectionClassType = '' | 'symbolCard--selected' | 'symbolCard--not-selected';
 
 const SymbolCard = ({ id, price }: SymbolCardProps) => {
   const dispatch = useAppDispatch();
@@ -26,15 +29,20 @@ const SymbolCard = ({ id, price }: SymbolCardProps) => {
     dispatch(saveActiveSymbol(id !== activeSymbol ? id : ''));
   };
 
+  /** Assigns the correct className to the symbol card depending if
+   * there is a selection, and if so if this actual card is selected or not */
+  const symbolCardSelectionClassName = (): SymbolCardSelectionClassType =>
+    activeSymbol === ''
+      ? ''
+      : activeSymbol === id
+      ? 'symbolCard--selected'
+      : 'symbolCard--not-selected';
+
   return (
     <div
       onClick={handleOnClick}
-      className={`symbolCard ${
-        activeSymbol === ''
-          ? ''
-          : activeSymbol === id
-          ? 'symbolCard--selected'
-          : 'symbolCard--not-selected'
+      className={`${
+        'symbolCard ' + symbolCardSelectionClassName() + ' ' + useSymbolCardStyle(price)
       }`}
     >
       <StockCardHeader id={id} trend={trend} />

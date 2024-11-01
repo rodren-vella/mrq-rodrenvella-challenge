@@ -1,21 +1,45 @@
-.symbolCard {
-  margin: 10px; /* just for visibility, feel free to remove it */
-  background-color: var(--colorWhite);
-  border-radius: 6px;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+@keyframes glowGreen {
+  0%,
+  100% {
+    box-shadow: 0px 0px 0px 0px var(--colorMantis); /* Fade out glow */
+  }
+  40%,
+  60% {
+    box-shadow: 0px 0px 16px 4px var(--colorMantis);
+  }
 }
 
-.symbolCard__shake {
-  animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+@keyframes glowRed {
+  0%,
+  100% {
+    box-shadow: 0px 0px 0px 0px var(--colorFireOpal); /* Fade out glow */
+  }
+  40%,
+  60% {
+    box-shadow: 0px 0px 16px 4px var(--colorFireOpal);
+  }
 }
 
-.symbolCard--selected {
-  transform: scale(104%);
-  box-shadow: 0px 0px 16px 0px var(--colorDark);
+@keyframes glowGreenSelected {
+  0%,
+  100% {
+    box-shadow: 0px 0px 16px 4px var(--colorDark); /* Fade out glow */
+  }
+  40%,
+  60% {
+    box-shadow: 0px 0px 16px 4px var(--colorMantis);
+  }
 }
 
-.symbolCard--not-selected {
-  transform: scale(96%);
+@keyframes glowRedSelected {
+  0%,
+  100% {
+    box-shadow: 0 0 16px 4px var(--colorDark); /* Fade out glow */
+  }
+  40%,
+  60% {
+    box-shadow: 0px 0px 16px 4px var(--colorFireOpal);
+  }
 }
 
 @keyframes shake {
@@ -47,10 +71,63 @@
   }
 }
 
+.symbolCard {
+  margin: 10px; /* just for visibility, feel free to remove it */
+  background-color: var(--colorWhite);
+  border-radius: 6px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.symbolCard__shake {
+  animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
 .symbolCard__content {
   padding: 4px;
 }
 
 .symbolCard__content .listItem {
   justify-content: space-between;
+}
+
+/** SELECTION FX  */
+
+.symbolCard--not-selected {
+  transform: scale(96%);
+}
+
+.symbolCard--selected {
+  transform: scale(104%);
+  box-shadow: 0px 0px 16px 4px var(--colorDark);
+}
+
+/** TREND FX  */
+
+.symbolCard--bigger {
+  animation: glowGreen 1.2s forwards;
+}
+
+.symbolCard--smaller {
+  animation: glowRed 1.2s forwards;
+}
+/** SELECTION + TREND FX  */
+
+.symbolCard--selected.symbolCard--bigger,
+.symbolCard--selected.symbolCard--bigger-shakefx {
+  animation: glowGreenSelected 1.2s forwards;
+}
+
+.symbolCard--selected.symbolCard--smaller,
+.symbolCard--selected.symbolCard--smaller-shakefx {
+  animation: glowRedSelected 1.2s forwards;
+}
+
+/** TREND FX + SHAKE */
+
+.symbolCard--bigger-shakefx:not(.symbolCard--selected) {
+  animation: glowGreen 1.2s forwards, shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.symbolCard--smaller-shakefx:not(.symbolCard--selected) {
+  animation: glowRed 1.2s forwards, shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }

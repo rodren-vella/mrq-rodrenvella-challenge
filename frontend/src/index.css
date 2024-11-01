@@ -16,6 +16,8 @@
   --colorDark: #0e1120;
   --colorWhite: #fdfdfd;
   --colorIron: #e2e2e4;
+  --colorMantis: #74d950;
+  --colorFireOpal: #de5050;
 
   color: var(--colorDark);
 }
