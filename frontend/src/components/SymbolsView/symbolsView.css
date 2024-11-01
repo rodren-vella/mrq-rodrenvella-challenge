@@ -22,4 +22,19 @@
   .symbolsView__chart {
     padding: 0 12px 12px;
   }
+
+  .symbolsView__cards {
+    margin-right: unset;
+    overflow-y: scroll;
+    max-height: calc(100vh - 315px);
+    scrollbar-width: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .symbolsView__cards {
+    margin-right: unset;
+    overflow-y: scroll;
+    max-height: calc(100vh - 298px);
+  }
 }
