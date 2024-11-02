@@ -11,9 +11,11 @@ const StockCardHeader = ({ id, trend }: StockCardHeaderProps) => {
   return (
     <div className="stockCardHeader">
       <h4>{id}</h4>
-      <span className={'stockCardHeader__trend stockCardHeader__trend--' + trend?.toLowerCase()}>
-        {/**/}
-      </span>
+      {trend && (
+        <span className={'stockCardHeader__trend stockCardHeader__trend--' + trend?.toLowerCase()}>
+          {/**/}
+        </span>
+      )}
     </div>
   );
 };
