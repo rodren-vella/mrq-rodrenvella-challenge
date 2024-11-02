@@ -1,4 +1,6 @@
 import './symbolCard.css';
+import React, { memo, useMemo } from 'react';
+
 import { ReactComponent as CompanyIcon } from '@/assets/company.svg';
 import { ReactComponent as IndustryIcon } from '@/assets/industry.svg';
 import { ReactComponent as MarketCapIcon } from '@/assets/market_cap.svg';
@@ -6,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import StockCardHeader from './src/StockCardHeader';
 import StockCardPrice from './src/StockCardPrice';
-import React from 'react';
 import { formatCurrency } from '@/utils/priceFormatter';
 import { saveActiveSymbol } from '@/store/dashboardOptionsSlice';
 import useSymbolCardStyle from '@/hooks/useSymbolCardStyle';
@@ -21,10 +22,16 @@ type SymbolCardSelectionClassType = '' | 'symbolCard--selected' | 'symbolCard--n
 const SymbolCard = ({ id, price }: SymbolCardProps) => {
   const dispatch = useAppDispatch();
 
+  /** useMemo the SVG icons so when passed as props, that component won't get unnecessary re-renders */
+  const memoCompanyIcon = useMemo(() => <CompanyIcon />, []);
+  const memoIndustryIcon = useMemo(() => <IndustryIcon />, []);
+  const memoMarketCapIcon = useMemo(() => <MarketCapIcon />, []);
+
+  const { showCardInfo, activeSymbol } = useAppSelector((state) => state.store);
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
-  const { showCardInfo, activeSymbol } = useAppSelector((state) => state.store);
+
   const handleOnClick = () => {
     dispatch(saveActiveSymbol(id !== activeSymbol ? id : ''));
   };
@@ -50,13 +57,14 @@ const SymbolCard = ({ id, price }: SymbolCardProps) => {
         <StockCardPrice price={price} />
         {showCardInfo && (
           <React.Fragment>
-            <ListItem Icon={<CompanyIcon />} label={companyName} />
-            <ListItem Icon={<IndustryIcon />} label={industry} />
-            <ListItem Icon={<MarketCapIcon />} label={formatCurrency(marketCap)} />
+            <ListItem Icon={memoCompanyIcon} label={companyName} />
+            <ListItem Icon={memoIndustryIcon} label={industry} />
+            <ListItem Icon={memoMarketCapIcon} label={formatCurrency(marketCap)} />
           </React.Fragment>
         )}
       </div>
     </div>
   );
 };
-export default SymbolCard;
+
+export default memo(SymbolCard);
