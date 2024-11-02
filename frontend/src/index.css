@@ -15,6 +15,9 @@
   --colorSecondary: #f2f3f3;
   --colorDark: #0e1120;
   --colorWhite: #fdfdfd;
+  --colorIron: #e2e2e4;
+  --colorMantis: #74d950;
+  --colorFireOpal: #de5050;
 
   color: var(--colorDark);
 }
@@ -33,7 +36,6 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
-  height: 100vh;
   background: #f3f3f3;
 }
 
