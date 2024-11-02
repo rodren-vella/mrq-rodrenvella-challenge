@@ -11,6 +11,10 @@
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   padding: 16px;
   margin-right: 16px;
+
+  overflow-y: scroll;
+  max-height: calc(100vh - 230px);
+  scrollbar-width: none;
 }
 
 @media (max-width: 1023px) {
@@ -25,16 +29,13 @@
 
   .symbolsView__cards {
     margin-right: unset;
-    overflow-y: scroll;
     max-height: calc(100vh - 315px);
-    scrollbar-width: none;
   }
 }
 
 @media (max-width: 767px) {
   .symbolsView__cards {
     margin-right: unset;
-    overflow-y: scroll;
     max-height: calc(100vh - 298px);
   }
 }
